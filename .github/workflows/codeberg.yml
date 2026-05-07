@@ -16,4 +16,4 @@ jobs:
               run: |
                 git config --global url."https://api:${{secrets.CODEBERG_AUTH}}@codeberg.org/".insteadOf "https://codeberg.org/"
                 git remote set-url origin https://codeberg.org/Multiiverse/Inkay.git
-                git push
+                git push --force
