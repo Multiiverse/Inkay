@@ -1,0 +1,19 @@
+name: Codeberg sync
+permissions:
+  contents: read
+
+on:
+- push
+- workflow_dispatch
+
+jobs:
+    codeberg-push:
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v6
+            - name: Codeberg sync
+              if: contains(github.event.head_commit.message, '[no sync]')
+              run: |
+                git config --global url."https://api:${{secrets.CODEBERG_AUTH}}@codeberg.org/".insteadOf "https://codeberg.org/"
+                git remote set-url origin https://codeberg.org/Multiiverse/Inkay.git
+                git push
